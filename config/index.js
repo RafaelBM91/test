@@ -29,9 +29,13 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
       '/api': {
-        target: 'http://localhost',
+        target: 'http://192.168.0.1:9090/graphql',
         pathRewrite: {'^/api' : ''}
-      }
+      },
+      '/subapi': {
+        target: 'http://192.168.0.1:3020',
+        pathRewrite: {'^/subapi' : ''}
+      },
     },
     // CSS Sourcemaps off by default because relative paths are "buggy"
     // with this option, according to the CSS-Loader README

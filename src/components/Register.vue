@@ -6,8 +6,8 @@
         <p class="modal-card-title">Register</p>
         <button class="delete" aria-label="close" v-on:click="$store.commit('changeRegister', false)"></button>
       </header>
-      <section class="modal-card-body">
-        <form action="#" v-on:submit.prevent="() => { console.log('gola') }">
+      <form action="#" v-on:submit.prevent="regstart">
+        <section class="modal-card-body">
           <div class="control">
             <label class="radio" v-on:mouseover="a = true" v-on:mouseout="a = false">
               <input type="radio" name="answer" checked>
@@ -41,7 +41,7 @@
           <div class="field">
             <label class="label">Email Address</label>
             <div class="control has-icons-left">
-              <input class="input is-info is-small" type="email" placeholder="Email Address" required>
+              <input class="input is-info is-small" type="email" placeholder="Email Address" v-model="email" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-user"></i>
               </span>
@@ -51,7 +51,7 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-left">
-              <input class="input is-info is-small" type="password" placeholder="Password" required>
+              <input class="input is-info is-small" type="password" placeholder="Password" v-model="password" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
@@ -61,7 +61,7 @@
           <div class="field">
             <label class="label">Password Again</label>
             <div class="control has-icons-left">
-              <input class="input is-info is-small" type="password" placeholder="Password Again" required>
+              <input class="input is-info is-small" type="password" placeholder="Password Again" v-model="passagain" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
@@ -69,7 +69,7 @@
             <p class="help is-danger">* is required</p>
           </div>
           <div class="select">
-            <select>
+            <select v-model="timezone" required>
               <option v-bind:value="null" selected="selected">Select Timezone</option>
               <option value="US/Pacific">(UTC-8) Pacific Time (US &amp; Canada)</option>
               <option value="US/Mountain">(UTC-7) Mountain Time (US &amp; Canada)</option>
@@ -106,29 +106,62 @@
             </select>
             <p class="help is-danger">* is required</p>
           </div>
-        </form>
-      </section>
-      <footer class="modal-card-foot">
-        <button type="submit" class="button is-info">Save</button>
-        <button class="button is-success" v-on:click="singin">SingIn</button>
-      </footer>
+        </section>
+        <footer class="modal-card-foot">
+          <button type="submit" class="button is-info">Save</button>
+          <button class="button is-success" v-on:click="singin">SingIn</button>
+        </footer>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
+  import gql from 'graphql-tag'
+
   export default {
     name: 'Login',
     data () {
       return {
-        a: false,
-        b: false
+        a        : false,
+        b        : false,
+        email    : 'rafael.ata1991@gmail.com',
+        password : '1234',
+        passagain: '1234',
+        timezone : null,
+        category : 'default'
       }
     },
     methods: {
       singin () {
         this.$store.commit('changeRegister', false)
         this.$store.commit('changeLogin', true)
+      },
+      regstart () {
+        const { email, password, timezone, category } = this
+        this.$apollo.mutate({
+          mutation: gql`mutation (
+            $email: String!,
+            $password: String!,
+            $timezone: String!,
+            $category: String!
+          ) {
+            register (
+              email:$email,
+              password:$password,
+              timezone:$timezone,
+              category:$category
+            ) {
+              email
+            }
+          }`,
+          variables: {
+            email,
+            password,
+            timezone,
+            category
+          }
+        })
       }
     }
   }

@@ -1,7 +1,7 @@
 <template>
   <section class="hero is-medium is-info is-bold">
     <div class="hero-head">
-      <NavBarComp />
+      <NavBarComp v-show="!$store.state.navbarControl" />
     </div>
     <div class="hero-body">
       <div class="container has-text-centered">

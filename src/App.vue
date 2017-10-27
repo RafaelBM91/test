@@ -3,6 +3,7 @@
     <!-- <img src="./assets/logo.png"> -->
     <router-view></router-view>
     <FooterComp />
+    <NavBarComp v-show="$store.state.navbarControl" />
     <LoginComp />
     <RegisterComp />
   </div>
@@ -12,6 +13,7 @@
   import FooterComp from '@/components/Footer'
   import LoginComp from '@/components/Login'
   import RegisterComp from '@/components/Register'
+  import NavBarComp from '@/components/NavBar'
 
   import 'bulma/css/bulma.css'
   import 'font-awesome/css/font-awesome.css'
@@ -31,7 +33,8 @@
     components: {
       'FooterComp': FooterComp,
       'LoginComp': LoginComp,
-      'RegisterComp': RegisterComp
+      'RegisterComp': RegisterComp,
+      'NavBarComp': NavBarComp
     }
   }
 </script>

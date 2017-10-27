@@ -11,7 +11,7 @@
           <div class="field">
             <label class="label">Email Address</label>
             <div class="control has-icons-left">
-              <input class="input is-info" type="email" placeholder="Email Address" required>
+              <input class="input is-info is-small" type="email" placeholder="Email Address" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-user"></i>
               </span>
@@ -21,7 +21,7 @@
           <div class="field">
             <label class="label">Password</label>
             <div class="control has-icons-left">
-              <input class="input is-info" type="password" placeholder="Password" required>
+              <input class="input is-info is-small" type="password" placeholder="Password" required>
               <span class="icon is-small is-left">
                 <i class="fa fa-lock"></i>
               </span>
